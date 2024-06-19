@@ -1,0 +1,26 @@
+body {
+    background-color: #212121;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    border: 1px solid black;
+    border-radius: 0.3rem;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+
+#result {
+    font-size: 35px;
+    margin-left: 90px;
+    margin-top: 20px;
+    color: rgb(241, 241, 241);
+}
