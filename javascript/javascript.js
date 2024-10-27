@@ -1,4 +1,4 @@
-const form = document.getElementById('bmiForm');
+  const form = document.getElementById('bmiForm');
         const result = document.getElementById('result');
         const heightError = document.getElementById('heightError');
         const weightError = document.getElementById('weightError');
@@ -9,8 +9,7 @@ const form = document.getElementById('bmiForm');
             // Reset error messages
             heightError.textContent = '';
             weightError.textContent = '';
-            result.textContent = '';
-            result.style.backgroundColor = '';
+            result.style.display = 'none';
 
             // Get input values
             const height = parseFloat(document.getElementById('height').value);
@@ -19,13 +18,13 @@ const form = document.getElementById('bmiForm');
             
             let isValid = true;
 
-            if (!height || height <= 0 || height > 300) {
-                heightError.textContent = 'Please enter a valid height between 1 and 300 cm';
+            if (!height || height <= 0) {
+                heightError.textContent = 'Please enter a valid height';
                 isValid = false;
             }
 
-            if (!weight || weight <= 0 || weight > 500) {
-                weightError.textContent = 'Please enter a valid weight between 1 and 500 kg';
+            if (!weight || weight <= 0) {
+                weightError.textContent = 'Please enter a valid weight';
                 isValid = false;
             }
 
@@ -39,24 +38,20 @@ const form = document.getElementById('bmiForm');
             let weightStatus = '';
             let backgroundColor = '';
 
-            if (bmi < 18.5) {
-                weightStatus = 'Underweight';
-                backgroundColor = '#FFC107';
-            } else if (bmi >= 18.5 && bmi <= 24.9) {
-                weightStatus = 'Normal weight';
-                backgroundColor = '#4CAF50';
-            } else if (bmi >= 25 && bmi <= 29.9) {
-                weightStatus = 'Overweight';
-                backgroundColor = '#FF9800';
+            if (bmi < 18.6) {
+                weightStatus = 'Under Weight';
+                backgroundColor = '#FFC107'; // Yellow
+            } else if (bmi >= 18.6 && bmi <= 24.9) {
+                weightStatus = 'Normal Range';
+                backgroundColor = '#4CAF50'; // Green
             } else {
-                weightStatus = 'Obese';
-                backgroundColor = '#f44336';
+                weightStatus = 'Overweight';
+                backgroundColor = '#f44336'; // Red
             }
 
             // Display result
+            result.style.display = 'block';
             result.style.backgroundColor = backgroundColor;
-            result.style.color = 'white';
-            result.style.padding = '1rem';
             result.innerHTML = `Your BMI is <strong>${bmi}</strong><br>${weightStatus}`;
         });
 
