@@ -2,12 +2,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
         body {
             background-color: #212121;
             color: #fff;
-            font-family: Arial, sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -28,7 +28,7 @@
             text-align: center;
             color: #4CAF50;
             margin-bottom: 2rem;
-            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-size: 2rem;
         }
 
         .input-group {
@@ -38,81 +38,72 @@
         label {
             display: block;
             margin-bottom: 0.5rem;
-            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-size: 1.1rem;
         }
 
         input {
             width: 100%;
-            padding: 0.8rem;
+            padding: 12px;
             border: 2px solid #4CAF50;
             border-radius: 5px;
             background-color: #424242;
             color: white;
-            font-size: clamp(0.9rem, 2vw, 1rem);
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #66BB6A;
+            font-size: 1rem;
         }
 
         button {
             width: 100%;
+            padding: 12px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 1rem;
             border-radius: 5px;
-            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: background-color 0.3s;
-            margin-bottom: 1.5rem;
+            margin: 1rem 0;
         }
 
         button:hover {
-            background-color: #66BB6A;
+            background-color: #45a049;
         }
 
         #result {
-            text-align: center;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem 0;
+            padding: 15px;
             border-radius: 5px;
-            font-size: clamp(1rem, 3vw, 1.2rem);
-            word-wrap: break-word;
+            text-align: center;
+            font-size: 1.2rem;
+            display: none;
         }
 
         .weight-guide {
             background-color: #424242;
             padding: 1rem;
             border-radius: 5px;
+            margin-top: 1rem;
         }
 
         .weight-guide h3 {
             color: #4CAF50;
             margin-bottom: 1rem;
-            font-size: clamp(1rem, 3vw, 1.1rem);
         }
 
         .weight-guide p {
             margin: 0.5rem 0;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
-        .error {
-            color: #ff6b6b;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
-            margin-top: 0.3rem;
-        }
-
-        /* Responsive adjustments for very small screens */
-        @media (max-width: 320px) {
+        @media (max-width: 480px) {
             .container {
                 padding: 1rem;
             }
 
+            h1 {
+                font-size: 1.5rem;
+            }
+
             input, button {
-                padding: 0.6rem;
+                padding: 10px;
             }
         }
-    </style>
