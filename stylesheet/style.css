@@ -1,4 +1,4 @@
- * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -80,7 +80,6 @@
             border-radius: 5px;
             font-size: clamp(1rem, 3vw, 1.2rem);
             word-wrap: break-word;
-            display: none;
         }
 
         .weight-guide {
@@ -116,3 +115,4 @@
                 padding: 0.6rem;
             }
         }
+    </style>
