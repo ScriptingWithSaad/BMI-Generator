@@ -1,60 +1,62 @@
- // Get form elements
-        const form = document.querySelector('form');
-        const heightInput = document.querySelector('#height');
-        const weightInput = document.querySelector('#weight');
-        const result = document.querySelector('#result');
+function calculateBMI() {
+            // Get the input values
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const result = document.getElementById('result');
 
-        // Add form submit event listener
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get height and weight values
-            const height = parseFloat(heightInput.value);
-            const weight = parseFloat(weightInput.value);
-            
-            
-            if (height === '' || isNaN(height) || height <= 0) {
-                result.innerHTML = 'Please provide a valid height';
+            // Show the result div
+            result.style.display = 'block';
+
+            // Check if inputs are valid
+            if(height === '' || weight === '') {
+                result.style.backgroundColor = '#ff4444';
+                result.innerHTML = 'Please enter both height and weight';
                 return;
             }
-            
-            if (weight === '' || isNaN(weight) || weight <= 0) {
-                result.innerHTML = 'Please provide a valid weight';
+
+            // Convert string inputs to numbers
+            const heightNum = parseFloat(height);
+            const weightNum = parseFloat(weight);
+
+            // Check if inputs are positive numbers
+            if(heightNum <= 0 || weightNum <= 0) {
+                result.style.backgroundColor = '#ff4444';
+                result.innerHTML = 'Please enter valid height and weight';
                 return;
             }
-            
+
             // Calculate BMI
-            const heightInMeters = height / 100;  // Convert cm to meters
-            const bmi = weight / (heightInMeters * heightInMeters);
-            const bmiFixed = bmi.toFixed(2);  // Round to 2 decimal places
-            
-            
-            let message;
-            let color;
-            
-            if (bmi < 18.6) {
-                message = 'Under Weight';
-                color = '#FFC107';  // Yellow
-            } else if (bmi >= 18.6 && bmi <= 24.9) {
-                message = 'Normal Range';
-                color = '#4CAF50';  // Green
+            const heightMeters = heightNum / 100;
+            const bmi = weightNum / (heightMeters * heightMeters);
+            const bmiRounded = bmi.toFixed(1);
+
+            // Determine BMI category and color
+            let category, color;
+
+            if(bmi < 18.6) {
+                category = 'Under Weight';
+                color = '#FFC107'; // Yellow
+            } else if(bmi >= 18.6 && bmi <= 24.9) {
+                category = 'Normal Range';
+                color = '#4CAF50'; // Green
             } else {
-                message = 'Overweight';
-                color = '#f44336';  // Red
+                category = 'Overweight';
+                color = '#ff4444'; // Red
             }
-            
-            // Display result
+
+            // Display the result
             result.style.backgroundColor = color;
-            result.innerHTML = `<p>Your BMI: ${bmiFixed}</p><p>You are: ${message}</p>`;
+            result.innerHTML = `
+                Your BMI is: <strong>${bmiRounded}</strong><br>
+                Category: <strong>${category}</strong>
+            `;
+        }
+
+        // Clear result when input changes
+        document.getElementById('height').addEventListener('input', function() {
+            document.getElementById('result').style.display = 'none';
         });
 
-        
-        heightInput.addEventListener('input', function() {
-            result.innerHTML = '';
-            result.style.backgroundColor = 'transparent';
-        });
-
-        weightInput.addEventListener('input', function() {
-            result.innerHTML = '';
-            result.style.backgroundColor = 'transparent';
+        document.getElementById('weight').addEventListener('input', function() {
+            document.getElementById('result').style.display = 'none';
         });
