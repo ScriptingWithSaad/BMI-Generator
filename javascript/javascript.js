@@ -1,31 +1,70 @@
-const form = document.querySelector('form');
+const form = document.getElementById('bmiForm');
+        const result = document.getElementById('result');
+        const heightError = document.getElementById('heightError');
+        const weightError = document.getElementById('weightError');
 
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            heightError.textContent = '';
+            weightError.textContent = '';
+            result.textContent = '';
+            result.style.backgroundColor = '';
 
-    const height = parseInt(document.querySelector('#height').value);
-    const weight = parseInt(document.querySelector('#weight').value);
-    const result = document.querySelector('#result')
-    const weightguide = document.querySelector('#weightguide')
+            // Get input values
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
 
+            
+            let isValid = true;
 
-    if (height <= 0 || isNaN(height)) {
-        result.innerHTML = `Your value is ${height}`;
-    } else if (weight <= 0 || isNaN(weight)) {
-        result.innerHTML = `Your Value is ${weight}`;
-    } else {
-        const heightInMeters = height / 100;
-        const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+            if (!height || height <= 0 || height > 300) {
+                heightError.textContent = 'Please enter a valid height between 1 and 300 cm';
+                isValid = false;
+            }
 
-        let weightStatus = '';
-        if (bmi < 18.6) {
-            weightStatus = 'Under Weight';
-        } else if (bmi >= 18.6 && bmi <= 24.9) {
-            weightStatus = 'Normal weight';
-        } else {
-            weightStatus = 'Over Weight';
-        }
+            if (!weight || weight <= 0 || weight > 500) {
+                weightError.textContent = 'Please enter a valid weight between 1 and 500 kg';
+                isValid = false;
+            }
 
-        result.innerHTML = `Your BMI Weight is ${bmi} ${weightStatus}`;
-    }
-});
+            if (!isValid) return;
+
+            // Calculate BMI
+            const heightInMeters = height / 100;
+            const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+
+            
+            let weightStatus = '';
+            let backgroundColor = '';
+
+            if (bmi < 18.5) {
+                weightStatus = 'Underweight';
+                backgroundColor = '#FFC107';
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                weightStatus = 'Normal weight';
+                backgroundColor = '#4CAF50';
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                weightStatus = 'Overweight';
+                backgroundColor = '#FF9800';
+            } else {
+                weightStatus = 'Obese';
+                backgroundColor = '#f44336';
+            }
+
+            // Display result
+            result.style.backgroundColor = backgroundColor;
+            result.style.color = 'white';
+            result.style.padding = '1rem';
+            result.innerHTML = `Your BMI is <strong>${bmi}</strong><br>${weightStatus}`;
+        });
+
+        
+        document.getElementById('height').addEventListener('input', function() {
+            heightError.textContent = '';
+        });
+
+        document.getElementById('weight').addEventListener('input', function() {
+            weightError.textContent = '';
+        });
