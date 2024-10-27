@@ -1,65 +1,60 @@
-  const form = document.getElementById('bmiForm');
-        const result = document.getElementById('result');
-        const heightError = document.getElementById('heightError');
-        const weightError = document.getElementById('weightError');
+ // Get form elements
+        const form = document.querySelector('form');
+        const heightInput = document.querySelector('#height');
+        const weightInput = document.querySelector('#weight');
+        const result = document.querySelector('#result');
 
+        // Add form submit event listener
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Reset error messages
-            heightError.textContent = '';
-            weightError.textContent = '';
-            result.style.display = 'none';
-
-            // Get input values
-            const height = parseFloat(document.getElementById('height').value);
-            const weight = parseFloat(document.getElementById('weight').value);
-
+            // Get height and weight values
+            const height = parseFloat(heightInput.value);
+            const weight = parseFloat(weightInput.value);
             
-            let isValid = true;
-
-            if (!height || height <= 0) {
-                heightError.textContent = 'Please enter a valid height';
-                isValid = false;
+            
+            if (height === '' || isNaN(height) || height <= 0) {
+                result.innerHTML = 'Please provide a valid height';
+                return;
             }
-
-            if (!weight || weight <= 0) {
-                weightError.textContent = 'Please enter a valid weight';
-                isValid = false;
+            
+            if (weight === '' || isNaN(weight) || weight <= 0) {
+                result.innerHTML = 'Please provide a valid weight';
+                return;
             }
-
-            if (!isValid) return;
-
+            
             // Calculate BMI
-            const heightInMeters = height / 100;
-            const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
-
+            const heightInMeters = height / 100;  // Convert cm to meters
+            const bmi = weight / (heightInMeters * heightInMeters);
+            const bmiFixed = bmi.toFixed(2);  // Round to 2 decimal places
             
-            let weightStatus = '';
-            let backgroundColor = '';
-
+            
+            let message;
+            let color;
+            
             if (bmi < 18.6) {
-                weightStatus = 'Under Weight';
-                backgroundColor = '#FFC107'; // Yellow
+                message = 'Under Weight';
+                color = '#FFC107';  // Yellow
             } else if (bmi >= 18.6 && bmi <= 24.9) {
-                weightStatus = 'Normal Range';
-                backgroundColor = '#4CAF50'; // Green
+                message = 'Normal Range';
+                color = '#4CAF50';  // Green
             } else {
-                weightStatus = 'Overweight';
-                backgroundColor = '#f44336'; // Red
+                message = 'Overweight';
+                color = '#f44336';  // Red
             }
-
+            
             // Display result
-            result.style.display = 'block';
-            result.style.backgroundColor = backgroundColor;
-            result.innerHTML = `Your BMI is <strong>${bmi}</strong><br>${weightStatus}`;
+            result.style.backgroundColor = color;
+            result.innerHTML = `<p>Your BMI: ${bmiFixed}</p><p>You are: ${message}</p>`;
         });
 
         
-        document.getElementById('height').addEventListener('input', function() {
-            heightError.textContent = '';
+        heightInput.addEventListener('input', function() {
+            result.innerHTML = '';
+            result.style.backgroundColor = 'transparent';
         });
 
-        document.getElementById('weight').addEventListener('input', function() {
-            weightError.textContent = '';
+        weightInput.addEventListener('input', function() {
+            result.innerHTML = '';
+            result.style.backgroundColor = 'transparent';
         });
